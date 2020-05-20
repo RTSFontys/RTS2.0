@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    
+    public LayerMask ClickableObjects;
     void Update()
     {
-        
+        if(Input.GetMouseButtonDown(0))
+        {
+            RaycastHit rayHit;
+           if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayHit, ClickableObjects))
+            {
+                rayHit.collider.GetComponent<UnitController>().ClickMe();
+            }
+        }
     }
 }
