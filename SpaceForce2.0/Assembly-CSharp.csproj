@@ -36,9 +36,10 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Script\CameraController.cs" />
-     <Compile Include="Assets\Script\GameController.cs" />
-     <Compile Include="Assets\Script\UnitController.cs" />
+     <Compile Include="Assets\Script\CameraMechanics\CameraController.cs" />
+     <Compile Include="Assets\Script\CameraMechanics\SelectBox.cs" />
+     <Compile Include="Assets\Script\GameMechanics\GameController.cs" />
+     <Compile Include="Assets\Script\GameMechanics\UnitController.cs" />
     <Reference Include="UnityEngine">
         <HintPath>D:/Unity/Unity Editor/2019.3.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -593,6 +594,9 @@
     </Reference>
     <Reference Include="UnityEditor.UI">
         <HintPath>D:/VisualStudio/Repos/RTS2.0/SpaceForce2.0/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+        <HintPath>D:/VisualStudio/Repos/RTS2.0/SpaceForce2.0/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
