@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitController : MonoBehaviour
+public class BuildingController : MonoBehaviour
 {
     public Material selected;
     public Material notSelected;

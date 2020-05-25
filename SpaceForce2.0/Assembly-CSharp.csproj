@@ -38,6 +38,7 @@
   <ItemGroup>
      <Compile Include="Assets\Script\CameraMechanics\CameraController.cs" />
      <Compile Include="Assets\Script\CameraMechanics\SelectBox.cs" />
+     <Compile Include="Assets\Script\GameMechanics\BuildingController.cs" />
      <Compile Include="Assets\Script\GameMechanics\GameController.cs" />
      <Compile Include="Assets\Script\GameMechanics\UnitController.cs" />
     <Reference Include="UnityEngine">
@@ -589,14 +590,14 @@
     <Reference Include="Unity.Rider.Editor">
         <HintPath>D:/VisualStudio/Repos/RTS2.0/SpaceForce2.0/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+        <HintPath>D:/VisualStudio/Repos/RTS2.0/SpaceForce2.0/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TextMeshPro">
         <HintPath>D:/VisualStudio/Repos/RTS2.0/SpaceForce2.0/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
         <HintPath>D:/VisualStudio/Repos/RTS2.0/SpaceForce2.0/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Sprite.Editor">
-        <HintPath>D:/VisualStudio/Repos/RTS2.0/SpaceForce2.0/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

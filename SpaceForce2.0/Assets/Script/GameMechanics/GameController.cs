@@ -8,13 +8,15 @@ public class GameController : MonoBehaviour
 
     private List<GameObject> selectedUnits;
 
-    private List<GameObject> selectableUnits;
+    public List<GameObject> selectableUnits;
 
     private Vector3 mousePos1;
     private Vector3 mousePos2;
 
 
-    public LayerMask ClickableObjects;
+    public LayerMask ClickableUnits;
+
+    public LayerMask ClickableBuildings;
 
     public void Awake() {
         selectedUnits = new List<GameObject>();
@@ -34,9 +36,10 @@ public class GameController : MonoBehaviour
         {
 
             mousePos1 = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+
             RaycastHit rayHit;
            
-            if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayHit, Mathf.Infinity, ClickableObjects))
+            if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayHit, Mathf.Infinity, ClickableUnits))
             {
                 
                 UnitController unitControllerScript = rayHit.collider.GetComponent<UnitController>();
@@ -63,6 +66,53 @@ public class GameController : MonoBehaviour
             
             }
         }
+        if(Input.GetMouseButtonUp(0))
+        {
+            mousePos2 = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+
+            if(mousePos1 != mousePos2)
+            {
+                SelectObjects();
+            }
+        }
+    }
+
+    void SelectObjects()
+    {
+        List<GameObject> remObjects =  new List<GameObject>();
+        if(Input.GetKey("left ctrl") == false)
+        {
+            ClearSelection();
+        }
+
+        Rect selectRect = new Rect(mousePos1.x, mousePos1.y, mousePos2.x - mousePos1.x, mousePos2.y - mousePos1.y);
+
+        foreach(GameObject selectObject in selectableUnits)
+        {
+            if(selectObject != null)
+            {
+                if(selectRect.Contains(Camera.main.WorldToViewportPoint(selectObject.transform.position), true))
+                {
+                    selectedUnits.Add(selectObject);
+                    selectObject.GetComponent<UnitController>().currentlyselected = true;
+                    selectObject.GetComponent<UnitController>().ClickMe();
+                }
+            }
+            else{
+                remObjects.Add(selectObject);
+            }
+        }
+
+        if(remObjects.Count > 0)
+        {
+            foreach(GameObject rem in remObjects)
+            {
+                selectableUnits.Remove(rem);
+            }
+            remObjects.Clear();
+        }
+
+
     }
 
     void ClearSelection()
