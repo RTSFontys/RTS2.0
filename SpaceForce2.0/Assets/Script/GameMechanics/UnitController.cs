@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class UnitController : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class UnitController : MonoBehaviour
     public Material notSelected;
 
     private MeshRenderer myRend;
+
+    public Vector3 startpos;
+
+    private NavMeshAgent navAgent;
 
 
     public bool currentlyselected = false;
@@ -17,6 +22,7 @@ public class UnitController : MonoBehaviour
         myRend = GetComponent<MeshRenderer>();
         Camera.main.gameObject.GetComponent<GameController>().selectableUnits.Add(this.gameObject);
         ClickMe();
+        navAgent = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
@@ -31,4 +37,12 @@ public class UnitController : MonoBehaviour
             myRend.material = selected;
         }
     }
+
+    public void moveUnit(Vector3 dest)
+    {
+        navAgent.Warp(dest);
+        navAgent.destination = dest;
+    }
+
+    
 }

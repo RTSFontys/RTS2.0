@@ -10,8 +10,12 @@ public class GameController : MonoBehaviour
 
     public List<GameObject> selectableUnits;
 
+    public List<GameObject> selectedBuildings;
+
     private Vector3 mousePos1;
     private Vector3 mousePos2;
+
+    private Vector3 mousePos3;
 
 
     public LayerMask ClickableUnits;
@@ -20,6 +24,7 @@ public class GameController : MonoBehaviour
 
     public void Awake() {
         selectedUnits = new List<GameObject>();
+        selectedBuildings = new List<GameObject>();
         selectableUnits = new List<GameObject>();
 
 
@@ -29,16 +34,22 @@ public class GameController : MonoBehaviour
 
         if(Input.GetMouseButtonDown(1))
         {
-           ClearSelection();
+            if(selectedUnits.Count > 0)
+            {
+                foreach(GameObject obj in selectedUnits)
+                {
+                    obj.GetComponent<UnitController>().moveUnit(new Vector3(Input.mousePosition.x - obj.GetComponent<UnitController>().transform.position.x, obj.GetComponent<UnitController>().transform.position.y, Input.mousePosition.y - obj.GetComponent<UnitController>().transform.position.z));
+                }
+            }
+           //ClearSelection();
+
         }
 
         if(Input.GetMouseButtonDown(0))
         {
 
             mousePos1 = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-
             RaycastHit rayHit;
-           
             if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayHit, Mathf.Infinity, ClickableUnits))
             {
                 
@@ -64,6 +75,30 @@ public class GameController : MonoBehaviour
                     unitControllerScript.ClickMe();
                 }
             
+            }
+            else if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayHit, Mathf.Infinity, ClickableBuildings))
+            {
+                BuildingController BuildingControllerScript = rayHit.collider.GetComponent<BuildingController>();
+                if(Input.GetKey("left ctrl"))
+                {
+                    if(BuildingControllerScript.currentlyselected == false)
+                    {
+                        selectedBuildings.Add(rayHit.collider.gameObject);
+                        BuildingControllerScript.currentlyselected = true;
+                        BuildingControllerScript.ClickMe();
+                    }
+                    else{
+                        selectedBuildings.Remove(rayHit.collider.gameObject);
+                        BuildingControllerScript.currentlyselected = false;
+                        BuildingControllerScript.ClickMe();
+                    }
+                }
+                else{
+                    ClearSelection();
+                    selectedBuildings.Add(rayHit.collider.gameObject);
+                    BuildingControllerScript.currentlyselected = true;
+                    BuildingControllerScript.ClickMe();
+                }
             }
         }
         if(Input.GetMouseButtonUp(0))
@@ -125,6 +160,15 @@ public class GameController : MonoBehaviour
                 obj.GetComponent<UnitController>().ClickMe();
             }
             selectedUnits.Clear();
+        }
+        else if(selectedBuildings.Count > 0)
+        {
+            foreach(GameObject obj in selectedBuildings)
+            {
+                obj.GetComponent<BuildingController>().currentlyselected = false;
+                obj.GetComponent<BuildingController>().ClickMe();
+            }
+            selectedBuildings.Clear();
         }                   
     }
 }
